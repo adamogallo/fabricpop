@@ -18,6 +18,7 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      transition: background 0.5s ease;
     }
 
     header {
@@ -47,11 +48,12 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 1rem;
-      transition: background 0.2s ease;
+      transition: background 0.2s ease, box-shadow 0.3s ease;
     }
 
     button:hover {
       background-color: #e0117a;
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
     }
 
     .msg {
@@ -60,18 +62,37 @@
       word-break: break-all;
       color: #ffb6c1;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    #welcome {
+      display: none;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 
 <body>
-  <header>
-    <img src="/fabricpop-logo.png" alt="Fabric Pop Logo" class="logo" />
+  <header id="connect-screen">
+    <img src="assets/fabricpop-logo.png" alt="Fabric Pop Logo" class="logo" />
     <h1>FabricPop — REEL Reviews, REAL People 🎬</h1>
     <p>The blockchain-verified movie review hub</p>
+
+    <button id="connectBtn">Connect Wallet</button>
+    <div id="message" class="msg"></div>
   </header>
 
-  <button id="connectBtn">Connect Wallet</button>
-  <div id="message" class="msg"></div>
+  <div id="welcome">
+    <h1>🎉 Welcome to Fabric Pop!</h1>
+    <p>You’re now connected and ready to explore verified movie reviews.</p>
+  </div>
 
   <script type="module">
     import {
@@ -82,6 +103,8 @@
 
     const connectBtn = document.getElementById("connectBtn");
     const msg = document.getElementById("message");
+    const connectScreen = document.getElementById("connect-screen");
+    const welcome = document.getElementById("welcome");
 
     connectBtn.addEventListener("click", async () => {
       msg.textContent = "Connecting...";
@@ -103,9 +126,14 @@
         const account = accounts[0];
         msg.textContent = `✅ Connected: ${account.address}`;
 
-        const injector = await web3FromAddress(account.address);
-        console.log("Connected account:", account);
-        console.log("Signer injector:", injector);
+        await web3FromAddress(account.address);
+
+        // ✅ Show welcome screen
+        setTimeout(() => {
+          connectScreen.style.display = "none";
+          welcome.style.display = "block";
+        }, 1000);
+
       } catch (err) {
         console.error("Connection error:", err);
         msg.textContent = "⚠️ Failed to connect wallet. Check console for details.";
@@ -114,4 +142,3 @@
   </script>
 </body>
 </html>
-
