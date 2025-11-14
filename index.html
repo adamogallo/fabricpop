@@ -1,58 +1,40 @@
-<script type="module">
-  import {
-    web3Enable,
-    web3Accounts,
-    web3FromAddress,
-  } from "https://cdn.jsdelivr.net/npm/@polkadot/extension-dapp@0.46.8/+esm";
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/fabricpop-logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FabricPop — REEL Reviews, REAL People</title>
 
-  const connectBtn = document.getElementById("connectBtn");
-  const msg = document.getElementById("message");
-  const connectScreen = document.getElementById("connect-screen");
-  const welcome = document.getElementById("welcome");
+  <!-- Pico CSS Pink Theme -->
+  <link rel="stylesheet" href="/css/pico.pink.min.css">
 
-  connectBtn.addEventListener("click", async () => {
-    msg.textContent = "Connecting...";
-    console.log("🔗 Starting wallet connection...");
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    try {
-      // Ask for permission to connect to wallet extensions
-      const extensions = await web3Enable("FabricPop");
-      console.log("Extensions found:", extensions);
-
-      if (!extensions || extensions.length === 0) {
-        msg.innerHTML = `
-          ❌ No Polkadot wallet extension detected.<br>
-          Please install <a href='https://talisman.xyz' target='_blank'>Talisman</a> 
-          or <a href='https://polkadot.js.org/extension/' target='_blank'>Polkadot.js</a>.
-        `;
-        return;
-      }
-
-      // Get available accounts
-      const accounts = await web3Accounts();
-      console.log("Accounts found:", accounts);
-
-      if (accounts.length === 0) {
-        msg.textContent = "No accounts found in wallet.";
-        return;
-      }
-
-      const account = accounts[0];
-      msg.textContent = `✅ Connected: ${account.address}`;
-      console.log("Connected to:", account.address);
-
-      // Optional: get signer
-      const injector = await web3FromAddress(account.address);
-      console.log("Signer injector:", injector);
-
-      // Show welcome screen
-      setTimeout(() => {
-        connectScreen.style.display = "none";
-        welcome.style.display = "block";
-      }, 800);
-    } catch (err) {
-      console.error("⚠️ Connection error:", err);
-      msg.textContent = "⚠️ Failed to connect wallet. Check console for details.";
+  <style>
+    :root {
+      --pico-font-family: 'Poppins', system-ui, sans-serif;
     }
-  });
-</script>
+
+    .logo {
+      max-width: 120px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ff1493, #00ff88, #00bfff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
