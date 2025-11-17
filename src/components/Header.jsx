@@ -2,7 +2,7 @@ export default function Header() {
   return (
     <header style={{ textAlign: 'center', marginBottom: '3rem' }}>
       <img
-        src="/public/FabricPop.png" // absolute path served from public/
+        src="/FabricPop.png" // absolute path served from public/
         alt="FabricPop Logo"
         className="logo"
         style={{ margin: '0 auto 1rem' }}
