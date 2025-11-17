@@ -3,7 +3,7 @@ import Header from './components/Header'
 import WalletConnect from './components/WalletConnect'
 import ReviewWorkflow from './components/ReviewWorkflow'
 
-import logo from './public/FabricPop.png'
+<img src="/fabricpop.png" alt="FabricPop logo" />
 
 function App() {
   const [account, setAccount] = useState(null)
