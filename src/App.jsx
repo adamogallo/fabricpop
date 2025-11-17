@@ -3,6 +3,8 @@ import Header from './components/Header'
 import WalletConnect from './components/WalletConnect'
 import ReviewWorkflow from './components/ReviewWorkflow'
 
+import logo from './public/FabricPop.png'
+
 function App() {
   const [account, setAccount] = useState(null)
 
