@@ -2,6 +2,8 @@
 
 Web3 gamified movie/tv/game reviews
 
+DEMO LINK: https://fabricpop.vercel.app/
+
 ---
 
 ## Development
